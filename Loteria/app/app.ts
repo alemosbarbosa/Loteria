@@ -3,22 +3,18 @@
         constructor($routeProvider: ng.route.IRouteProvider) {
             $routeProvider
                 .when("/", {
-                    templateUrl: "/app/posts/list.html",
-                    controller: "PostsCtrl as vm"
+                    templateUrl: "/app/aposta/index.html",
+                    controller: "ApostaCtrl as vm"
                 })
-                .when("/edit/:id", {
-                    templateUrl: "/app/posts/edit.html",
-                    controller: "PostEditCtrl as vm"
-                })
-                .when("/add", {
-                    templateUrl: "/app/posts/add.html",
-                    controller: "PostAddCtrl as vm"
+                .when("/sorteio", {
+                    templateUrl: "/app/sorteio/index.html",
+                    controller: "SorteioCtrl as vm"
                 })
                 .otherwise({ redirectTo: '/' });
         }
     }
     Config.$inject = ['$routeProvider'];
 
-    var mainApp = angular.module('chsakellBlogApp', ['ngRoute']);
+    var mainApp = angular.module('loteriaApp', ['ngRoute']);
     mainApp.config(Config);
 }

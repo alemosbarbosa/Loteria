@@ -1,0 +1,28 @@
+﻿<hr />
+<div class="row" ng-repeat="aposta in vm.apostas">
+    <hr />
+    <div class="media">
+        <div class="col-sm-4">
+            <a class="pull-left" href="#/edit/{{aposta.Id}}" title="Edit">
+                <img class="media-object img-responsive" ng-src="{{aposta.ImageURI}}" alt="{{aposta.Title}}" />
+            </a>
+
+        </div>
+        <div class="col-sm-8">
+            <div class="media-body">
+                <h4 class="media-heading">{{aposta.Title}}</h4>
+                <h5>
+                    <img class="media-object gravatar" ng-src="{{aposta.AuthorGravatar}} alt=" {{aposta.Author}} />
+                    By <a href="http://chsakell.com/author/chsakell/" target="_blank">{{aposta.Author}}</a>
+                    on {{ aposta.DatePublished | date:'MM/dd/yyyy'}}
+                </h5>
+
+                <div class="media-body">
+                    {{aposta.Contents}}.. <a href="{{aposta.URI}}" target="_blank">Read more</a>
+                    <a class="btn btn-xs btn-warning" href="/#/edit/{{aposta.Id}}">Edit</a>
+                    <button class="btn btn-xs btn-danger" ng-click="vm.remove(aposta.Id)">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

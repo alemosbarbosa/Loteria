@@ -1,0 +1,74 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="loteriaApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <!-- styles:css -->
+    <link rel="stylesheet" href="/.build/css/appStyles.css">
+    <!-- endinject -->
+
+    <!-- vendors:js -->
+    <script src="/.build/vendors/vendors.js"></script>
+    <!-- endinject -->
+
+    <!-- domain:js -->
+    <script src="/.build/spa/domain.js"></script>
+    <!-- endinject -->
+    <!-- app:js -->
+    <script src="/.build/spa/app.js"></script>
+    <!-- endinject -->
+
+    @*<script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/bower_components/angular/angular.js"></script>
+    <script src="~/bower_components/angular-route/angular-route.js"></script>
+
+    <script src="~/app/app.js"></script>
+    <script src="~/app/domain/IEntity.js"></script>
+    <script src="~/app/domain/Aposta.js"></script>
+    <script src="~/app/common/services/constantService.js"></script>
+    <script src="~/app/common/services/dataService.js"></script>
+    <script src="~/app/posts/apostaCtrl.js"></script>*@
+</head>
+<body>
+    <div id="wrap">
+        <div id="main" class="container">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand active" href="#/">TypeScript SPA</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/add" class="active">Add Post<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
+                        <li><a href="#/">About<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" ng-if="userData.isUserLoggedIn">
+                        <li class="userinfo"><a href="#/">{{username}}<i class="fa fa-user fa-fw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <ng-view></ng-view>
+        </div>
+    </div>
+    <footer class="navbar navbar-fixed-bottom">
+        <div class="text-center">
+            <h4 class="white">
+                <a href="https://alemosbarbosa.com/" target="_blank">Alexandre's Blog</a>
+                <i>Anything around ASP.NET MVC,Web API, WCF, Entity Framework & C#</i>
+            </h4>
+        </div>
+    </footer>
+</body>
+</html>
