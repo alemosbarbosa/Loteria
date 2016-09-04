@@ -9,7 +9,7 @@ gulp.task('spa-task', function () {
     var target = gulp.src('./views/home/index.cshtml');
 
     var appDomainStream = gulp.src(['./app/domain/*.js']);
-    var appStream = gulp.src(['./app/*.js', './app/posts/*.js', './app/common/services/*.js']);
+    var appStream = gulp.src(['./app/*.js', './app/aposta/*.js', './app/common/services/*.js']);
 
     return target
                 .pipe(inject(appDomainStream

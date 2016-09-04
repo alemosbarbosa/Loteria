@@ -6,6 +6,7 @@
         DhCriacao?: Date;
         DhSorteio?: Date;
         QtdApostas?: number;
+        CodStatus?: number;
         Numeros: number[];
     }
 
@@ -16,6 +17,7 @@
             public Id?: number,
             public DhCriacao?: Date,
             public DhSorteio?: Date,
+            public CodStatus?: number,
             public QtdApostas?: number) {
 
             super();
@@ -25,6 +27,7 @@
             this.NumSorteio = NumSorteio;
             this.DhCriacao = DhCriacao;
             this.DhSorteio = DhSorteio;
+            this.CodStatus = CodStatus;
             this.QtdApostas = QtdApostas;
             this.Numeros = Numeros;
         }

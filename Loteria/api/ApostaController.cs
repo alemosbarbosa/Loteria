@@ -12,22 +12,23 @@ namespace Loteria.api
     {
         private LoteriaEntity entity = new LoteriaEntity();
         private DbSet<Aposta> MyAposta { get { return entity.Aposta; } }
+        private LoteriaDAL dal = new LoteriaDAL();
 
         // GET api/aposta
         public IHttpActionResult Get()
         {
-            var aposta = MyAposta;
-            return Ok(aposta);
+            var apostaDTOs = MyAposta.ToArray().Select(x => (ApostaDTO)x).ToArray();
+            return Ok(apostaDTOs);
         }
 
         // GET api/aposta/5
         public IHttpActionResult Get(int id)
         {
-            var post = MyAposta.FirstOrDefault(p => p.Id == id);
+            var aposta = MyAposta.FirstOrDefault(p => p.Id == id);
 
-            if (post != null)
+            if (aposta != null)
             {
-                return Ok(post);
+                return Ok((ApostaDTO)aposta);
             }
             else
             {
@@ -38,9 +39,34 @@ namespace Loteria.api
         // POST api/aposta
         public IHttpActionResult Post([FromBody]ApostaDTO apostaDTO)
         {
-            var aposta = MyAposta.Add((Aposta)apostaDTO);
-            return Ok(aposta);
+            try
+            {
+                var idApostador = apostaDTO.IdApostador;
+                var idSorteio = apostaDTO.IdSorteio;
+                var numeros = apostaDTO.Numeros;
+                var apostaAutomatica = apostaDTO.ApostaAutomatica;
+
+                var newAposta = apostaAutomatica ? dal.CriaAposta(idApostador, idSorteio)
+                                : dal.CriaAposta(idApostador, idSorteio, numeros);
+                return Ok((ApostaDTO)newAposta);
+            }
+            catch(Exception ex)
+            {
+                var msg = ex.Message;
+                return BadRequest(msg);
+            }
         }
+
+        // GET api/aposta/porapostador
+        [Route("api/aposta/porapostador/{idApostador}")]
+        [HttpGet]
+        public IHttpActionResult ApostasApostador(int idApostador)
+        {
+            var apostas = MyAposta.Where(x => x.IdApostador == idApostador).ToArray();
+            var apostaDTOs = apostas.Select(x => (ApostaDTO)x).ToArray();
+            return Ok(apostaDTOs);
+        }
+
 
         //// PUT api/aposta/5
         //public IHttpActionResult Put(int id, [FromBody]Post post)

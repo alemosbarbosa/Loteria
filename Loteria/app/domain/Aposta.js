@@ -9,7 +9,7 @@ var app;
     (function (domain) {
         var Aposta = (function (_super) {
             __extends(Aposta, _super);
-            function Aposta(IdApostador, IdSorteio, Numeros, Id, DhAposta, IdTipoAcerto) {
+            function Aposta(IdApostador, IdSorteio, Numeros, Id, DhAposta, IdTipoAcerto, ApostaAutomatica) {
                 _super.call(this);
                 this.IdApostador = IdApostador;
                 this.IdSorteio = IdSorteio;
@@ -17,12 +17,14 @@ var app;
                 this.Id = Id;
                 this.DhAposta = DhAposta;
                 this.IdTipoAcerto = IdTipoAcerto;
+                this.ApostaAutomatica = ApostaAutomatica;
                 this.Id = Id;
                 this.IdApostador = IdApostador;
                 this.IdSorteio = IdSorteio;
                 this.DhAposta = DhAposta;
                 this.IdTipoAcerto = IdTipoAcerto;
                 this.Numeros = Numeros;
+                this.ApostaAutomatica = ApostaAutomatica;
             }
             return Aposta;
         }(app.domain.EntityBase));

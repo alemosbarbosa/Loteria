@@ -1,28 +1,80 @@
-﻿<hr />
-<div class="row" ng-repeat="aposta in vm.apostas">
-    <hr />
-    <div class="media">
-        <div class="col-sm-4">
-            <a class="pull-left" href="#/edit/{{aposta.Id}}" title="Edit">
-                <img class="media-object img-responsive" ng-src="{{aposta.ImageURI}}" alt="{{aposta.Title}}" />
-            </a>
-
-        </div>
-        <div class="col-sm-8">
-            <div class="media-body">
-                <h4 class="media-heading">{{aposta.Title}}</h4>
-                <h5>
-                    <img class="media-object gravatar" ng-src="{{aposta.AuthorGravatar}} alt=" {{aposta.Author}} />
-                    By <a href="http://chsakell.com/author/chsakell/" target="_blank">{{aposta.Author}}</a>
-                    on {{ aposta.DatePublished | date:'MM/dd/yyyy'}}
-                </h5>
-
-                <div class="media-body">
-                    {{aposta.Contents}}.. <a href="{{aposta.URI}}" target="_blank">Read more</a>
-                    <a class="btn btn-xs btn-warning" href="/#/edit/{{aposta.Id}}">Edit</a>
-                    <button class="btn btn-xs btn-danger" ng-click="vm.remove(aposta.Id)">Remove</button>
+﻿<br /><hr />
+<div class="row">
+    <!-- edit form column -->
+    <div class="alert alert-success alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a>
+        <i class="fa fa-pencil-square-o"></i>
+        Sorteio Corrente: <strong>{{vm.sorteioCorrente.NumSorteio}} ({{vm.statusCorrente.Descricao}})</strong>
+    </div>
+    <form class="form" role="form" ng-submit="vm.jogar();">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="txtapostador" class="control-label">Apostador:</label>
+                    <input id="txtapostador" type="text" class="form-control" ng-model="vm.nomeApostador"/>
+                </div>
+                <div class="col-sm-8 pull-right">
+                    <label for="txtsorteio" class="control-label">Sorteio:</label>
+                    <input id="txtsorteio" type="text" class="form-control" ng-model="vm.numSorteioSelecionado" />
                 </div>
             </div>
         </div>
-    </div>
+        <div class="form-group col-md-4">
+            <div class="">
+                <input type="submit" class="btn btn-primary" value="Começar" />
+                <span></span>
+                <a class="btn btn-default" ng-href="#/">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+<div class="row" ng-show="vm.apostador">
+    <form class="form" role="form" ng-submit="vm.registraAposta();">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="radio" name="opcaodejogo" value="automatica" class="radio" ng-model="vm.opcaoDeJogo"> Automático<br>
+                        <input type="radio" name="opcaodejogo" value="manual" class="radio" ng-model="vm.opcaoDeJogo" checked> Manual<br>
+                    </div>
+                    <div ng-show="vm.opcaoDeJogo == 'manual'">
+                        <div class="form-group" ng-repeat="numero in vm.numerosAposta">
+                            <label class="control-label">{{numero.Posicao}}</label>
+                            <input type="number" class="form-control" ng-model="numero.Valor" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <strong>Apostas realizadas:</strong> <br />
+                        <div ng-show="!vm.apostadorTemApostas()">
+                            <strong>Nenhuma aposta registrada até o momento!</strong>
+                        </div>
+                        <div ng-show="vm.apostadorTemApostas()">
+                            <table class="table">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Hora Aposta</th>
+                                    <th>Números</th>
+                                </tr>
+                                <tr ng-repeat="aposta in vm.apostasApostador">
+                                    <td>{{aposta.Id}}</td>
+                                    <td>{{aposta.DhAposta | date:'HH:mm:ss dd-MM-yyyy-MM'}}</td>
+                                    <td>{{vm.geraColunaNumeros(aposta.Numeros)}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="">
+                <input type="submit" class="btn btn-primary" value="Apostar" />
+                <span></span>
+                <a class="btn btn-default" ng-href="#/">Cancel</a>
+            </div>
+        </div>
+    </form>
 </div>

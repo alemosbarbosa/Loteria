@@ -53,33 +53,40 @@ namespace Loteria.Models
                     throw new Exception("Sorteio já processado");
                 }
                 var tipoSorteio = sorteio.TipoSorteio;
-                var minValor = tipoSorteio.MinValorNumero;
-                var maxValor = tipoSorteio.MaxValorNumero;
-                if (maxValor < minValor)  // Não é para acontecer
-                {
-                    var msg = String.Format("Inconsistência da configuração de valor mínimo e máximo do Tipo de Sorteio de Id {0}", tipoSorteio.Id);
-                    throw new Exception(msg);
-                }
-                if (maxValor - minValor < tipoSorteio.MinNumerosPorJogo)  // Não é para acontecer
-                {
-                    var msg = String.Format("Inconsistência da configuração na quantidade de números por Aposta para o Tipo de Sorteio de Id {0}", tipoSorteio.Id);
-                    throw new Exception(msg);
-                }
-                var listaNumeros = new List<int>();
-                maxValor++;  // Ajuste para usar na chamada do método Next de Random
-                var random = new Random(DateTime.Now.Millisecond);
-                for (int i = 0; i < tipoSorteio.MinNumerosPorJogo;)
-                {
-                    var num = random.Next(minValor, maxValor);
-                    if (!listaNumeros.Any(x => x == num))
-                    {
-                        listaNumeros.Add(num);
-                        i++;
-                    }
-                }
-                numeros = listaNumeros.ToArray();
+                numeros = SorteiaNumeros(tipoSorteio);
             }
             return FechaSorteio(idSorteio, numeros);
+        }
+
+        private static int[] SorteiaNumeros(TipoSorteio tipoSorteio)
+        {
+            int[] numeros;
+            var minValor = tipoSorteio.MinValorNumero;
+            var maxValor = tipoSorteio.MaxValorNumero;
+            if (maxValor < minValor)  // Não é para acontecer
+            {
+                var msg = String.Format("Inconsistência da configuração de valor mínimo e máximo do Tipo de Sorteio de Id {0}", tipoSorteio.Id);
+                throw new Exception(msg);
+            }
+            if (maxValor - minValor < tipoSorteio.MinNumerosPorJogo)  // Não é para acontecer
+            {
+                var msg = String.Format("Inconsistência da configuração na quantidade de números por Aposta para o Tipo de Sorteio de Id {0}", tipoSorteio.Id);
+                throw new Exception(msg);
+            }
+            var listaNumeros = new List<int>();
+            maxValor++;  // Ajuste para usar na chamada do método Next de Random
+            var random = new Random(DateTime.Now.Millisecond);
+            for (int i = 0; i < tipoSorteio.MinNumerosPorJogo;)
+            {
+                var num = random.Next(minValor, maxValor);
+                if (!listaNumeros.Any(x => x == num))
+                {
+                    listaNumeros.Add(num);
+                    i++;
+                }
+            }
+            numeros = listaNumeros.ToArray();
+            return numeros;
         }
 
         public Sorteio FechaSorteio(int idSorteio, int[] numeros)
@@ -184,6 +191,30 @@ namespace Loteria.Models
                 entity.SaveChanges();
                 return newApostador;
             }
+        }
+
+        public Aposta CriaAposta(int idApostador, int idSorteio)
+        {
+            int[] numeros;
+            using (var entity = new LoteriaEntity())
+            {
+                var apostador = entity.Apostador.Where(x => x.Id == idApostador).SingleOrDefault();
+                if (apostador == null)
+                {
+                    throw new Exception("Apostador não encontrado");
+                }
+                var sorteio = entity.Sorteio.Where(x => x.Id == idSorteio).SingleOrDefault();
+                if (sorteio == null)
+                {
+                    throw new Exception("Sorteio não encontrado");
+                }
+                if (sorteio.CodStatus != KStatusSorteioAberto)
+                {
+                    throw new Exception("Sorteio já finalizado");
+                }
+                numeros = SorteiaNumeros(sorteio.TipoSorteio);
+            }
+            return CriaAposta(idApostador, idSorteio, numeros);
         }
 
         public Aposta CriaAposta(int idApostador, int idSorteio, int[] numeros)

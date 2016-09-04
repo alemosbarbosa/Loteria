@@ -9,14 +9,22 @@ var app;
     (function (domain) {
         var TipoSorteio = (function (_super) {
             __extends(TipoSorteio, _super);
-            function TipoSorteio(Descricao, Id, NumSorteioCorrente) {
+            function TipoSorteio(Descricao, MinNumerosPorJogo, MaxNumerosPorJogo, MinValorNumero, MaxValorNumero, Id, NumSorteioCorrente) {
                 _super.call(this);
                 this.Descricao = Descricao;
+                this.MinNumerosPorJogo = MinNumerosPorJogo;
+                this.MaxNumerosPorJogo = MaxNumerosPorJogo;
+                this.MinValorNumero = MinValorNumero;
+                this.MaxValorNumero = MaxValorNumero;
                 this.Id = Id;
                 this.NumSorteioCorrente = NumSorteioCorrente;
                 this.Id = Id;
                 this.Descricao = Descricao;
                 this.NumSorteioCorrente = NumSorteioCorrente;
+                this.MinNumerosPorJogo = MinNumerosPorJogo;
+                this.MaxNumerosPorJogo = MaxNumerosPorJogo;
+                this.MinValorNumero = MinValorNumero;
+                this.MaxValorNumero = MaxValorNumero;
             }
             return TipoSorteio;
         }(app.domain.EntityBase));

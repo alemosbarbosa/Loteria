@@ -19,9 +19,12 @@ namespace Loteria.Models
 
         public int[] Numeros { get; set; }
 
+        // Parâmetro só utilizado entre o cliente Angularjs e o Web API
+        public bool ApostaAutomatica { get; set; } = false;
+
         public static explicit operator Aposta(ApostaDTO apostaDTO)
         {
-            var itemAposta = apostaDTO.Numeros.Select(x => new ItemAposta() { Id = -1, IdAposta = -1, Numero = x }).ToArray();
+            var itemAposta = apostaDTO.Numeros.Select(x => new ItemAposta() { Numero = x }).ToArray();
             var aposta = new Aposta() {
                 Id = apostaDTO.Id.HasValue ? apostaDTO.Id.Value : -1,
                 IdApostador = apostaDTO.IdApostador,
@@ -31,9 +34,22 @@ namespace Loteria.Models
                 ItemAposta = itemAposta
 
             };
-            // code to convert from int to SampleClass...
-
             return aposta;
+        }
+
+        public static explicit operator ApostaDTO(Aposta aposta)
+        {
+            var numeros = aposta.ItemAposta .Select(x => x.Numero).ToArray();
+            var apostaDTO = new ApostaDTO()
+            {
+                Id = aposta.Id,
+                IdApostador = aposta.IdApostador,
+                IdSorteio = aposta.IdSorteio,
+                DhAposta = aposta.DhAposta,
+                IdTipoAcerto = aposta.IdApostador,
+                Numeros = numeros
+            };
+            return apostaDTO;
         }
     }
 }

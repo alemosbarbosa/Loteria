@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\aposta\index.html" />
+    <Content Include="app\aposta\list.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -133,6 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="api\ApostaController.cs" />
+    <Compile Include="api\StatusSorteioController.cs" />
+    <Compile Include="api\TipoAcertoController.cs" />
+    <Compile Include="api\ApostadorController.cs" />
+    <Compile Include="api\TipoSorteioController.cs" />
+    <Compile Include="api\SorteioController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -147,7 +153,7 @@
     <Compile Include="Models\DTO\SorteioDTO.cs" />
     <Compile Include="Models\DTO\StatusSorteioDTO.cs" />
     <Compile Include="Models\DTO\TipoAcertoDTO.cs" />
-    <Compile Include="Models\DTO\TipoSorteio.cs" />
+    <Compile Include="Models\DTO\TipoSorteioDTO.cs" />
     <Compile Include="Models\ItemAposta.cs" />
     <Compile Include="Models\ItemSorteio.cs" />
     <Compile Include="Models\LoteriaDAL.cs" />

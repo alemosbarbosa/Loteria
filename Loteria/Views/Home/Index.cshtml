@@ -4,12 +4,12 @@
 
 <!DOCTYPE html>
 
-<html ng-app="loteriaApp">
+<html ng-app="loteriaApp" lang="pt-br">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 
-    <!-- styles:css -->
+    @*<!-- styles:css -->
     <link rel="stylesheet" href="/.build/css/appStyles.css">
     <!-- endinject -->
 
@@ -22,9 +22,12 @@
     <!-- endinject -->
     <!-- app:js -->
     <script src="/.build/spa/app.js"></script>
-    <!-- endinject -->
+    <!-- endinject -->*@
 
-    @*<script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/site.css" rel="stylesheet" />
+
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
     <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/bower_components/angular/angular.js"></script>
     <script src="~/bower_components/angular-route/angular-route.js"></script>
@@ -34,7 +37,7 @@
     <script src="~/app/domain/Aposta.js"></script>
     <script src="~/app/common/services/constantService.js"></script>
     <script src="~/app/common/services/dataService.js"></script>
-    <script src="~/app/posts/apostaCtrl.js"></script>*@
+    <script src="~/app/aposta/apostaCtrl.js"></script>
 </head>
 <body>
     <div id="wrap">
@@ -46,27 +49,26 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand active" href="#/">TypeScript SPA</a>
+                    <a class="navbar-brand active" href="#/">Loteria - Mega Sena</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#/add" class="active">Add Post<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
-                        <li><a href="#/">About<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
+                        <li><a href="#/" class="active">Aposta<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
+                        <li><a href="#/sorteio">Sorteio<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-if="userData.isUserLoggedIn">
                         <li class="userinfo"><a href="#/">{{username}}<i class="fa fa-user fa-fw"></i></a></li>
                     </ul>
                 </div>
             </div>
-
-            <ng-view></ng-view>
+             <ng-view></ng-view>
         </div>
     </div>
     <footer class="navbar navbar-fixed-bottom">
         <div class="text-center">
             <h4 class="white">
-                <a href="https://alemosbarbosa.com/" target="_blank">Alexandre's Blog</a>
-                <i>Anything around ASP.NET MVC,Web API, WCF, Entity Framework & C#</i>
+                <a href="https://www.loteriaficticia.com.br/" target="_blank">Loteria</a>
+                <i>Seu Site de Loteria na Internet</i>
             </h4>
         </div>
     </footer>

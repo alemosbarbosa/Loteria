@@ -6,6 +6,7 @@
         DhAposta?: Date;
         IdTipoAcerto?: number;
         Numeros: number[];
+        ApostaAutomatica?: boolean;
     }
 
     export class Aposta extends app.domain.EntityBase implements IAposta {
@@ -14,7 +15,8 @@
             public Numeros: number[],
             public Id?: number,
             public DhAposta?: Date,
-            public IdTipoAcerto?: number) {
+            public IdTipoAcerto?: number,
+            public ApostaAutomatica?: boolean) {
 
             super();
 
@@ -24,6 +26,7 @@
             this.DhAposta = DhAposta;
             this.IdTipoAcerto = IdTipoAcerto;
             this.Numeros = Numeros;
+            this.ApostaAutomatica = ApostaAutomatica;
         }
     }
 }

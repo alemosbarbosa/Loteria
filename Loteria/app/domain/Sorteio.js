@@ -9,7 +9,7 @@ var app;
     (function (domain) {
         var Sorteio = (function (_super) {
             __extends(Sorteio, _super);
-            function Sorteio(IdTipo, Numeros, NumSorteio, Id, DhCriacao, DhSorteio, QtdApostas) {
+            function Sorteio(IdTipo, Numeros, NumSorteio, Id, DhCriacao, DhSorteio, CodStatus, QtdApostas) {
                 _super.call(this);
                 this.IdTipo = IdTipo;
                 this.Numeros = Numeros;
@@ -17,12 +17,14 @@ var app;
                 this.Id = Id;
                 this.DhCriacao = DhCriacao;
                 this.DhSorteio = DhSorteio;
+                this.CodStatus = CodStatus;
                 this.QtdApostas = QtdApostas;
                 this.Id = Id;
                 this.IdTipo = IdTipo;
                 this.NumSorteio = NumSorteio;
                 this.DhCriacao = DhCriacao;
                 this.DhSorteio = DhSorteio;
+                this.CodStatus = CodStatus;
                 this.QtdApostas = QtdApostas;
                 this.Numeros = Numeros;
             }
