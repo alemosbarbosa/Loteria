@@ -101,8 +101,9 @@ var app;
             };
             ApostaCtrl.prototype.geraColunaNumeros = function (numeros) {
                 var ret = "";
-                for (var i in numeros) {
-                    ret += numeros[i] + " ";
+                var numerosOrdenados = numeros.sort(function (n1, n2) { return n1 - n2; });
+                for (var i = 0; i < numerosOrdenados.length; ++i) {
+                    ret += numerosOrdenados[i] + " ";
                 }
                 return ret;
             };
@@ -144,4 +145,3 @@ var app;
             .controller('ApostaCtrl', ApostaCtrl);
     })(apostaList = app.apostaList || (app.apostaList = {}));
 })(app || (app = {}));
-//# sourceMappingURL=apostaCtrl.js.map

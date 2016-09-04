@@ -25,4 +25,3 @@ var app;
         domain.TipoAcerto = TipoAcerto;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=TipoAcerto.js.map

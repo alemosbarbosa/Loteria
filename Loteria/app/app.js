@@ -19,4 +19,3 @@ var app;
     var mainApp = angular.module('loteriaApp', ['ngRoute']);
     mainApp.config(Config);
 })(app || (app = {}));
-//# sourceMappingURL=app.js.map

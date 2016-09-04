@@ -31,4 +31,3 @@ var app;
         domain.Aposta = Aposta;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=Aposta.js.map

@@ -23,4 +23,3 @@ var app;
         domain.Apostador = Apostador;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=Apostador.js.map

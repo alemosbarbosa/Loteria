@@ -10,4 +10,3 @@ var app;
         domain.EntityBase = EntityBase;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=IEntity.js.map

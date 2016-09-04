@@ -71,4 +71,3 @@ var app;
         })(services = common.services || (common.services = {}));
     })(common = app.common || (app.common = {}));
 })(app || (app = {}));
-//# sourceMappingURL=dataService.js.map

@@ -21,4 +21,3 @@ var app;
         domain.StatusSorteio = StatusSorteio;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=StatusSorteio.js.map

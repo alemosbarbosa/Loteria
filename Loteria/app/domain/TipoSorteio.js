@@ -31,4 +31,3 @@ var app;
         domain.TipoSorteio = TipoSorteio;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=TipoSorteio.js.map

@@ -123,8 +123,9 @@
 
         geraColunaNumeros(numeros: number[]): string {
             let ret: string = "";
-            for (var i in numeros) {
-                ret += numeros[i] + " ";
+            var numerosOrdenados = numeros.sort((n1, n2) => n1 - n2);
+            for (var i = 0; i < numerosOrdenados.length; ++i) {
+                ret += numerosOrdenados[i] + " ";
             }
             return ret;
         }

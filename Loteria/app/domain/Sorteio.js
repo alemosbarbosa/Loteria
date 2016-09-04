@@ -33,4 +33,3 @@ var app;
         domain.Sorteio = Sorteio;
     })(domain = app.domain || (app.domain = {}));
 })(app || (app = {}));
-//# sourceMappingURL=Sorteio.js.map
