@@ -27,6 +27,7 @@ var app;
                     _this.sorteioCorrente = result;
                     _this.numSorteioSelecionado = _this.sorteioCorrente.NumSorteio;
                     _this.statusCorrente = _this.statusSorteio.filter(function (x) { return x.CodStatus === _this.sorteioCorrente.CodStatus; })[0];
+                    _this.atualizaControles();
                 });
             };
             SorteioCtrl.prototype.getStatusSorteio = function () {
@@ -97,6 +98,10 @@ var app;
                     .then(function (result) {
                     _this.sorteioCorrente = result;
                     _this.statusCorrente = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioCorrente.CodStatus; })[0];
+                    if (_this.sorteioSelecionado.Id == result.Id) {
+                        _this.sorteioSelecionado = result;
+                        _this.statusSelecionado = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioSelecionado.CodStatus; })[0];
+                    }
                     _this.atualizaControles();
                 }, function (reason) {
                     if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
@@ -117,6 +122,10 @@ var app;
                     .then(function (result) {
                     _this.sorteioCorrente = result;
                     _this.statusCorrente = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioCorrente.CodStatus; })[0];
+                    if (_this.sorteioSelecionado.Id == result.Id) {
+                        _this.sorteioSelecionado = result;
+                        _this.statusSelecionado = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioSelecionado.CodStatus; })[0];
+                    }
                     _this.atualizaControles();
                 }, function (reason) {
                     if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&

@@ -7,11 +7,11 @@ var app;
                 templateUrl: "/app/aposta/aposta.html",
                 controller: "ApostaCtrl as vm"
             })
-                .when("/", {
+                .when("/sorteio", {
                 templateUrl: "/app/sorteio/sorteio.html",
                 controller: "SorteioCtrl as vm"
             })
-                .otherwise({ redirectTo: '/' });
+                .otherwise({ redirectTo: '/aposta' });
         }
         return Config;
     }());

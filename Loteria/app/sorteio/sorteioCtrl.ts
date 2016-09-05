@@ -50,6 +50,7 @@
                 this.sorteioCorrente = result;
                 this.numSorteioSelecionado = this.sorteioCorrente.NumSorteio;
                 this.statusCorrente = this.statusSorteio.filter(x => x.CodStatus === this.sorteioCorrente.CodStatus)[0];
+                this.atualizaControles();
             });
         }
 
@@ -121,6 +122,10 @@
                 .then((result: app.domain.ISorteio) => {
                     this.sorteioCorrente = result;
                     this.statusCorrente = this.statusSorteio.filter(x => x.CodStatus == this.sorteioCorrente.CodStatus)[0];
+                    if (this.sorteioSelecionado.Id == result.Id) {
+                        this.sorteioSelecionado = result;
+                        this.statusSelecionado = this.statusSorteio.filter(x => x.CodStatus == this.sorteioSelecionado.CodStatus)[0];
+                    }
                     this.atualizaControles();
                 },
                 (reason) => {
@@ -142,6 +147,10 @@
                 .then((result: app.domain.ISorteio) => {
                     this.sorteioCorrente = result;
                     this.statusCorrente = this.statusSorteio.filter(x => x.CodStatus == this.sorteioCorrente.CodStatus)[0];
+                    if (this.sorteioSelecionado.Id == result.Id) {
+                        this.sorteioSelecionado = result;
+                        this.statusSelecionado = this.statusSorteio.filter(x => x.CodStatus == this.sorteioSelecionado.CodStatus)[0];
+                    }
                     this.atualizaControles();
                 },
                 (reason) => {

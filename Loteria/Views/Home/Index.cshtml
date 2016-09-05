@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 
-<html ng-app="loteriaApp" lang="pt-br">
+<html ng-app="loteriaApp">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
@@ -56,11 +56,8 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#/" class="active">Aposta<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
-                        <li><a href="#/sorteio">Sorteio<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right" ng-if="userData.isUserLoggedIn">
-                        <li class="userinfo"><a href="#/">{{username}}<i class="fa fa-user fa-fw"></i></a></li>
+                        <li><a href="#!/aposta" class="active">Aposta<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
+                        <li><a href="#!/sorteio">Sorteio<i class="fa fa-info-circle fa-fw pull-right"></i></a></li>
                     </ul>
                 </div>
             </div>
