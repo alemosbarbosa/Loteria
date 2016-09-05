@@ -1,7 +1,7 @@
 var app;
 (function (app) {
-    var apostaList;
-    (function (apostaList) {
+    var aposta;
+    (function (aposta_1) {
         var kTipoSorteio = 1;
         var kOpcaoAutomatica = "automatica";
         var kOpcaoManual = "manual";
@@ -19,13 +19,6 @@ var app;
                 this.opcaoDeJogo = kOpcaoManual;
                 this.getTiposSorteio();
             }
-            ApostaCtrl.prototype.remove = function (Id) {
-                var self = this;
-                this.dataService.remove(this.constantService.apiApostaURI + Id)
-                    .then(function (result) {
-                    self.getAposta();
-                });
-            };
             ApostaCtrl.prototype.getAposta = function () {
                 var _this = this;
                 this.dataService.get(this.constantService.apiApostaURI).then(function (result) {
@@ -92,7 +85,7 @@ var app;
                     var numeros = [];
                     for (var i = 0; i < qtdNumerosAposta; ++i) {
                         numeros.push({
-                            "Posicao": i,
+                            "Posicao": i + 1,
                             "Valor": null
                         });
                     }
@@ -143,5 +136,5 @@ var app;
         }());
         angular.module('loteriaApp')
             .controller('ApostaCtrl', ApostaCtrl);
-    })(apostaList = app.apostaList || (app.apostaList = {}));
+    })(aposta = app.aposta || (app.aposta = {}));
 })(app || (app = {}));

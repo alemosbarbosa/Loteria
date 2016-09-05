@@ -1,8 +1,19 @@
-﻿module app.apostaList {
+﻿module app.aposta {
 
     interface IApostaViewModel {
         apostas: app.domain.IAposta[];
-        remove(Id: number): void;
+        idTipoSorteioCorrente: number;
+        sorteioCorrente: app.domain.ISorteio;
+        apostador: app.domain.IApostador;
+        numSorteioSelecionado: number;
+        statusSorteio: app.domain.IStatusSorteio[];
+        statusCorrente: app.domain.IStatusSorteio;
+        nomeApostador: string;
+        apostasApostador: app.domain.IAposta[];
+        tiposSorteio: app.domain.ITipoSorteio[];
+        tipoSorteioCorrente: app.domain.ITipoSorteio;
+        numerosAposta: NumeroAposta[];
+        opcaoDeJogo: string;
     }
 
     const kTipoSorteio: number = 1;
@@ -36,15 +47,7 @@
             this.getTiposSorteio();
         }
 
-        remove(Id: number): void {
-            var self = this; 
-
-            this.dataService.remove(this.constantService.apiApostaURI + Id)
-                .then(function (result) {
-                    self.getAposta();
-                });
-        }
-
+ 
         getAposta(): void {
             this.dataService.get(this.constantService.apiApostaURI).then((result: app.domain.IAposta[]) => {
                 this.apostas = result;
@@ -113,7 +116,7 @@
                 var numeros: NumeroAposta[] = [];
                 for (var i = 0; i < qtdNumerosAposta; ++i) {
                     numeros.push({
-                        "Posicao": i,
+                        "Posicao": i + 1,
                         "Valor": null
                     });
                 }

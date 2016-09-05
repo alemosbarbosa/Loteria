@@ -6,6 +6,7 @@ var app;
         (function (services) {
             var ConstantService = (function () {
                 function ConstantService() {
+                    this.apiAcertoURI = 'api/acerto/';
                     this.apiApostaURI = '/api/aposta/';
                     this.apiApostadorURI = '/api/apostador/';
                     this.apiSorteioURI = '/api/sorteio/';

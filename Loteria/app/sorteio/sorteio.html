@@ -1,0 +1,90 @@
+﻿<br /><hr />
+<div class="row">
+    <!-- edit form column -->
+    <div class="alert alert-success alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a>
+        <i class="fa fa-pencil-square-o"></i>
+        Sorteio Corrente: <strong>{{vm.sorteioCorrente.NumSorteio}} ({{vm.statusCorrente.Descricao}})</strong>
+    </div>
+    <form class="form" role="form" ng-submit="vm.buscarSorteio();">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="sltSorteio" class="control-label"> Sorteio: </label>
+                    <select name="sltSorteio" id="sltSorteio" class="form-control" ng-model="vm.idSorteioSelecionado">
+                        <option ng-repeat="sorteio in vm.sorteios" value="{{sorteio.Id}}">{{sorteio.NumSorteio}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="">
+                <input type="submit" class="btn btn-primary" value="Buscar" />
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+<div class="row" ng-show="vm.sorteioSelecionado">
+    <form class="form" role="form" ng-submit="vm.processaRequisicao();">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <strong>Status:</strong><span></span>{{vm.statusSelecionado.Descricao}}
+                    </div>
+                    <div ng-show="vm.podeSortear">
+                        <div class="form-group">
+                            <input type="radio" name="opcaodejogo" value="automatica" class="radio" ng-model="vm.opcaoDeSorteio" checked> Automático<br>
+                            <input type="radio" name="opcaodejogo" value="manual" class="radio" ng-model="vm.opcaoDeSorteio"> Manual<br>
+                        </div>
+                        <div ng-show="vm.opcaoDeSorteio == 'manual'">
+                            <div class="form-group" ng-repeat="numero in vm.numerosSorteio">
+                                <label class="control-label">{{numero.Posicao}}</label>
+                                <input type="number" class="form-control" ng-model="numero.Valor" />
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="!vm.podeSortear">
+                        <div class="form-group">
+                            <strong>Numeros Sorteados:</strong> <br />
+                            {{vm.geraNumerosSorteados()}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <strong>Acertadores:</strong> <br />
+                        <div ng-show="vm.podeSortear">
+                            <strong>Sorteio ainda não foi realizado!</strong>
+                        </div>
+                        <div ng-show="vm.podeProcessar">
+                            <strong>Falta realizar processamento para identificar os acertadores!</strong>
+                        </div>
+                        <div ng-show="vm.mostraNaoTemAcertador">
+                            <strong>Não houve nenhum acertador nesse sorteio!</strong>
+                        </div>
+                        <div ng-show="vm.exibeTabelaAcertadores">
+                            <table class="table">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tipo de Acerto</th>
+                                </tr>
+                                <tr ng-repeat="acerto in vm.acertos">
+                                    <td>{{acerto.NomeAcertador}}</td>
+                                    <td>{{acerto.DescricaoTipoAcerto}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="">
+                <input name="btnRequisicao" type="submit" class="btn btn-primary" value="Sortear" ng-disabled="!vm.podeSortear" />
+                <input name="btnRequisicao" type="submit" class="btn btn-primary" value="Processar" ng-disabled="!vm.podeProcessar"/>
+            </div>
+        </div>
+    </form>
+</div>

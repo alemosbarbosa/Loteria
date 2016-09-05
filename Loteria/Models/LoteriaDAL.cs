@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Loteria.Models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -159,7 +160,7 @@ namespace Loteria.Models
                 }
                 var tiposAcertosSorteio = entity.TipoAcerto.Where(x => x.IdTipo == sorteio.IdTipo);
                 var apostasSorteio = entity.Aposta.Where(x => x.IdSorteio == idSorteio);
-                foreach(var aposta in apostasSorteio)
+                foreach (var aposta in apostasSorteio)
                 {
                     var numAcertos = aposta.ItemAposta.Where(x => sorteio.ItemSorteio.Any(y => x.Numero == y.Numero)).Count();
                     var tipoAcerto = tiposAcertosSorteio.Where(x => x.QtdNumerosAcertados == numAcertos).SingleOrDefault();
@@ -260,7 +261,7 @@ namespace Loteria.Models
                     throw new Exception(msg);
                 }
                 var numerosOrdenados = numeros.OrderBy(x => x).ToArray();
-                for (int i = 0; i < qtdNumeros -1; i++)
+                for (int i = 0; i < qtdNumeros - 1; i++)
                 {
                     if (numerosOrdenados[i] == numerosOrdenados[i + 1])
                     {
@@ -281,5 +282,23 @@ namespace Loteria.Models
                 return newAposta;
             }
         }
+
+        public IEnumerable<AcertoDTO> BuscaAcertos(int idSorteio)
+        {
+            IEnumerable<AcertoDTO> ret;
+            using (var entity = new LoteriaEntity())
+            {
+                var acertos = entity.Acerto.Where(p => p.IdSorteio == idSorteio).ToArray();
+                ret = acertos.Select(x =>
+                {
+                    var y = (AcertoDTO)x;
+                    y.NomeAcertador = x.Aposta.Apostador.Nome;
+                    y.DescricaoTipoAcerto = x.Aposta.TipoAcerto.Descricao;
+                    return y;
+                }).ToArray();
+            }
+            return ret;
+        }
+
     }
 }

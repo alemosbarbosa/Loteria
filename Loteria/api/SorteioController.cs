@@ -52,5 +52,15 @@ namespace Loteria.api
                 return NotFound();
             }
         }
+
+        // GET api/sorteio/portipo
+        [Route("api/sorteio/portipo/{idTipo}")]
+        [HttpGet]
+        public IHttpActionResult SorteiosPTipo(int idTipo)
+        {
+            var sorteios = MySorteio.Where(p => p.IdTipo == idTipo).ToArray();
+            var sorteioDTOs = sorteios.Select(x => (SorteioDTO)x).ToArray();
+            return Ok(sorteioDTOs);
+        }
     }
 }

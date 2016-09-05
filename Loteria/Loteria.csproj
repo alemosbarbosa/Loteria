@@ -114,8 +114,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\aposta\index.html" />
-    <Content Include="app\aposta\list.html" />
+    <Content Include="app\aposta\aposta.html" />
+    <Content Include="app\sorteio\sorteio.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -137,6 +137,7 @@
     <Compile Include="api\StatusSorteioController.cs" />
     <Compile Include="api\TipoAcertoController.cs" />
     <Compile Include="api\ApostadorController.cs" />
+    <Compile Include="api\AcertoController.cs" />
     <Compile Include="api\TipoSorteioController.cs" />
     <Compile Include="api\SorteioController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Models\DTO\ApostaDTO.cs" />
     <Compile Include="Models\DTO\SorteioDTO.cs" />
     <Compile Include="Models\DTO\StatusSorteioDTO.cs" />
+    <Compile Include="Models\DTO\AcertoDTO.cs" />
     <Compile Include="Models\DTO\TipoAcertoDTO.cs" />
     <Compile Include="Models\DTO\TipoSorteioDTO.cs" />
     <Compile Include="Models\ItemAposta.cs" />
@@ -202,8 +204,10 @@
     <TypeScriptCompile Include="app\domain\IEntity.ts" />
     <TypeScriptCompile Include="app\domain\Sorteio.ts" />
     <TypeScriptCompile Include="app\domain\StatusSorteio.ts" />
+    <TypeScriptCompile Include="app\domain\Acerto.ts" />
     <TypeScriptCompile Include="app\domain\TipoAcerto.ts" />
     <TypeScriptCompile Include="app\domain\TipoSorteio.ts" />
+    <TypeScriptCompile Include="app\sorteio\sorteioCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

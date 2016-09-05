@@ -3,12 +3,12 @@ var app;
     var Config = (function () {
         function Config($routeProvider) {
             $routeProvider
-                .when("/", {
-                templateUrl: "/app/aposta/index.html",
+                .when("/aposta", {
+                templateUrl: "/app/aposta/aposta.html",
                 controller: "ApostaCtrl as vm"
             })
-                .when("/sorteio", {
-                templateUrl: "/app/sorteio/index.html",
+                .when("/", {
+                templateUrl: "/app/sorteio/sorteio.html",
                 controller: "SorteioCtrl as vm"
             })
                 .otherwise({ redirectTo: '/' });
