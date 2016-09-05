@@ -111,6 +111,24 @@ var app;
                 });
             };
             SorteioCtrl.prototype.processar = function () {
+                var _this = this;
+                var apiSorteioProcessa = this.constantService.apiSorteioURI + "processa/" + this.sorteioCorrente.Id;
+                this.dataService.getSingle(apiSorteioProcessa)
+                    .then(function (result) {
+                    _this.sorteioCorrente = result;
+                    _this.statusCorrente = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioCorrente.CodStatus; })[0];
+                    _this.atualizaControles();
+                }, function (reason) {
+                    if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
+                        reason.status === 400) {
+                        if (typeof (reason.data) !== "undefined" && typeof (reason.data.Message) != "undefined") {
+                            alert(reason.data.Message);
+                        }
+                    }
+                    else {
+                        alert("Ocorreu um erro no processamento da requisição");
+                    }
+                });
             };
             SorteioCtrl.prototype.atualizaControles = function () {
                 this.temAcertador = this.acertos && this.acertos.length > 0;

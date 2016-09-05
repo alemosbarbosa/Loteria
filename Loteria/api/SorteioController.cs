@@ -64,6 +64,23 @@ namespace Loteria.api
             return Ok(sorteioDTOs);
         }
 
+        // GET api/sorteio/corrent
+        [Route("api/sorteio/processa/{idSorteio}")]
+        [HttpGet]
+        public IHttpActionResult ProcessaSorteio(int idSorteio)
+        {
+            try
+            {
+                var sorteio = dal.ProcessaSorteio(idSorteio);
+                return Ok((SorteioDTO)sorteio);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                return BadRequest(msg);
+            }
+        }
+
         // POST api/sorteio
         public IHttpActionResult Post([FromBody]SorteioDTO sorteioDTO)
         {

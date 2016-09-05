@@ -137,6 +137,24 @@
         }
 
         processar(): void {
+            var apiSorteioProcessa = this.constantService.apiSorteioURI + "processa/" + this.sorteioCorrente.Id;
+            this.dataService.getSingle(apiSorteioProcessa)
+                .then((result: app.domain.ISorteio) => {
+                    this.sorteioCorrente = result;
+                    this.statusCorrente = this.statusSorteio.filter(x => x.CodStatus == this.sorteioCorrente.CodStatus)[0];
+                    this.atualizaControles();
+                },
+                (reason) => {
+                    if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
+                        reason.status === 400) {
+                        if (typeof (reason.data) !== "undefined" && typeof (reason.data.Message) != "undefined") {
+                            alert(reason.data.Message);
+                        }
+                    }
+                    else {
+                        alert("Ocorreu um erro no processamento da requisição");
+                    }
+                });
         }
 
         atualizaControles(): void {
