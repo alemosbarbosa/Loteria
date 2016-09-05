@@ -67,39 +67,14 @@ namespace Loteria.api
             return Ok(apostaDTOs);
         }
 
-
-        //// PUT api/aposta/5
-        //public IHttpActionResult Put(int id, [FromBody]Post post)
-        //{
-        //    Post _post = DataRepository.Posts.FirstOrDefault(p => p.Id == post.Id);
-
-        //    if (_post != null)
-        //    {
-        //        for (int index = 0; index < DataRepository.Posts.Count; index++)
-        //        {
-        //            if (DataRepository.Posts[index].Id == id)
-        //            {
-        //                DataRepository.Posts[index] = post;
-        //                return Ok();
-        //            }
-        //        }
-        //    }
-
-        //    return NotFound();
-        //}
-
-        //// DELETE api/aposta/5
-        //public IHttpActionResult Delete(int id)
-        //{
-        //    if (DataRepository.Posts.Any(p => p.Id == id))
-        //    {
-        //        Post _post = DataRepository.Posts.First(p => p.Id == id);
-        //        DataRepository.Posts.Remove(_post);
-
-        //        return Ok();
-        //    }
-
-        //    return NotFound();
-        //}
+        // GET api/aposta/porapostador
+        [Route("api/aposta/porapostador/{idApostador}/{idSorteio}")]
+        [HttpGet]
+        public IHttpActionResult ApostasApostador(int idApostador, int idSorteio)
+        {
+            var apostas = MyAposta.Where(x => x.IdApostador == idApostador && x.IdSorteio == idSorteio).ToArray();
+            var apostaDTOs = apostas.Select(x => (ApostaDTO)x).ToArray();
+            return Ok(apostaDTOs);
+        }
     }
 }

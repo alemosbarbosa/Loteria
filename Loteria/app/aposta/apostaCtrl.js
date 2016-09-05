@@ -78,7 +78,7 @@ var app;
             ApostaCtrl.prototype.buscaDadosApostador = function (apostador) {
                 var _this = this;
                 this.apostador = apostador;
-                var apiApostasApostador = this.constantService.apiApostaURI + "porapostador/" + apostador.Id;
+                var apiApostasApostador = this.constantService.apiApostaURI + "porapostador/" + apostador.Id + "/" + this.sorteioCorrente.Id;
                 this.dataService.get(apiApostasApostador).then(function (result) {
                     _this.apostasApostador = result;
                     var qtdNumerosAposta = _this.tipoSorteioCorrente.MinNumerosPorJogo;

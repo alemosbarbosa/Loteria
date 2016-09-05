@@ -109,7 +109,7 @@
 
         buscaDadosApostador(apostador: app.domain.IApostador): void {
             this.apostador = apostador;
-            var apiApostasApostador = this.constantService.apiApostaURI + "porapostador/" + apostador.Id;
+            var apiApostasApostador = this.constantService.apiApostaURI + "porapostador/" + apostador.Id + "/" + this.sorteioCorrente.Id;
             this.dataService.get(apiApostasApostador).then((result: app.domain.IAposta[]) => {
                 this.apostasApostador = result;
                 var qtdNumerosAposta = this.tipoSorteioCorrente.MinNumerosPorJogo;

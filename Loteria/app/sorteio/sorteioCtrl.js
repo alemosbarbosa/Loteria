@@ -93,6 +93,7 @@ var app;
                 var sorteioAutomatico = this.opcaoDeSorteio == kOpcaoAutomatica;
                 var numeros = sorteioAutomatico ? [] : this.numerosSorteio.map(function (x) { return x.Valor; }).filter(function (y) { return y != null; });
                 this.sorteioCorrente.Numeros = numeros;
+                this.sorteioCorrente.SorteioAutomatico = sorteioAutomatico;
                 var apiSorteioUpdate = this.constantService.apiSorteioURI + this.sorteioCorrente.Id;
                 this.dataService.update(apiSorteioUpdate, this.sorteioCorrente)
                     .then(function (result) {
@@ -140,13 +141,13 @@ var app;
                 });
             };
             SorteioCtrl.prototype.atualizaControles = function () {
-                this.temAcertador = this.acertos && this.acertos.length > 0;
-                this.podeSortear = this.statusSelecionado && this.statusSelecionado.CodStatus == 1; // Status: Aberto
-                this.podeProcessar = this.statusSelecionado && this.statusSelecionado.CodStatus == 2; // Status: Fechado
-                this.jaProcessado = this.statusSelecionado && this.statusSelecionado.CodStatus == 3; // Status: Processado
+                this.temAcertador = typeof (this.acertos) !== 'undefined' && this.acertos && this.acertos.length > 0;
+                this.podeSortear = typeof (this.statusSelecionado) !== 'undefined' && this.statusSelecionado && this.statusSelecionado.CodStatus == 1; // Status: Aberto
+                this.podeProcessar = typeof (this.statusSelecionado) !== 'undefined' && this.statusSelecionado && this.statusSelecionado.CodStatus == 2; // Status: Fechado
+                this.jaProcessado = typeof (this.statusSelecionado) !== 'undefined' && this.statusSelecionado && this.statusSelecionado.CodStatus == 3; // Status: Processado
                 this.mostraNaoTemAcertador = this.jaProcessado && !this.temAcertador;
                 this.exibeTabelaAcertadores = this.jaProcessado && this.temAcertador;
-                this.podeCriar = this.sorteioCorrente && this.sorteioCorrente.CodStatus == 3;
+                this.podeCriar = typeof (this.sorteioCorrente) !== 'undefined' && this.sorteioCorrente && this.sorteioCorrente.CodStatus == 3;
             };
             SorteioCtrl.prototype.geraNumerosSorteados = function () {
                 var ret = "";
@@ -182,6 +183,9 @@ var app;
                         }
                     });
                 }
+            };
+            SorteioCtrl.prototype.descricaoSorteiSelecionado = function () {
+                return this.sorteioSelecionado.Descricao;
             };
             SorteioCtrl.$inject = ['constantService', 'dataService'];
             return SorteioCtrl;

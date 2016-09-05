@@ -26,23 +26,26 @@
     </form>
 </div>
 <hr />
-<div class="row" ng-show="vm.sorteioSelecionado">
-    <form class="form" role="form">
+    <form class="form" role="form" ng-show="vm.sorteioSelecionado">
         <div class="form-group">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="form-group">
-                        <strong>Status:</strong><span></span>{{vm.statusSelecionado.Descricao}}
+                        <strong>Número Sorteio:</strong><span></span>{{ vm.sorteioSelecionado.NumSorteio }}<br />
+                        <strong>Status:</strong><span></span>{{ vm.statusSelecionado.Descricao }}
                     </div>
                     <div ng-show="vm.podeSortear">
-                        <div class="form-group">
+                        <div class="radio">
                             <input type="radio" name="opcaodejogo" value="automatica" class="radio" ng-model="vm.opcaoDeSorteio" checked> Automático<br>
                             <input type="radio" name="opcaodejogo" value="manual" class="radio" ng-model="vm.opcaoDeSorteio"> Manual<br>
                         </div>
                         <div ng-show="vm.opcaoDeSorteio == 'manual'">
                             <div class="form-group" ng-repeat="numero in vm.numerosSorteio">
-                                <label class="control-label">{{numero.Posicao}}</label>
-                                <input type="number" class="form-control" ng-model="numero.Valor" />
+                                <label for="num{{numero.Posicao}}" class="control-label col-sm-1">{{numero.Posicao}}</label>
+                                <div class="col-sm-3">
+                                    <input id="num{{numero.Posicao}}" type="number" class="form-control"
+                                           min="{{vm.tipoSorteioCorrente.MinValorNumero}}" max="{{vm.tipoSorteioCorrente.MaxValorNumero}}" ng-model="numero.Valor" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <strong>Acertadores:</strong> <br />
                         <div ng-show="vm.podeSortear">
@@ -88,4 +91,3 @@
             </div>
         </div>
     </form>
-</div>
