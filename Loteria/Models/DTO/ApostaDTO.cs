@@ -32,7 +32,6 @@ namespace Loteria.Models
                 DhAposta = apostaDTO.DhAposta.HasValue ? apostaDTO.DhAposta.Value : DateTime.MinValue,
                 IdTipoAcerto = apostaDTO.IdApostador,
                 ItemAposta = itemAposta
-
             };
             return aposta;
         }

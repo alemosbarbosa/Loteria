@@ -23,6 +23,9 @@ namespace Loteria.Models.DTO
 
         public int[] Numeros { get; set; }
 
+        // Parâmetro só utilizado entre o cliente Angularjs e o Web API
+        public bool SorteioAutomatico { get; set; } = true;
+
         public static explicit operator Sorteio(SorteioDTO sorteioDTO)
         {
             var itemSorteio = sorteioDTO.Numeros.Select(x => new ItemSorteio() { Numero = x }).ToArray();

@@ -8,6 +8,7 @@
         QtdApostas?: number;
         CodStatus?: number;
         Numeros: number[];
+        SorteioAutomatico?: boolean;
     }
 
     export class Sorteio extends app.domain.EntityBase implements ISorteio {
@@ -18,7 +19,8 @@
             public DhCriacao?: Date,
             public DhSorteio?: Date,
             public CodStatus?: number,
-            public QtdApostas?: number) {
+            public QtdApostas?: number,
+            public SorteioAutomatico?: boolean) {
 
             super();
 
@@ -30,6 +32,7 @@
             this.CodStatus = CodStatus;
             this.QtdApostas = QtdApostas;
             this.Numeros = Numeros;
+            this.SorteioAutomatico = SorteioAutomatico;
         }
     }
 }

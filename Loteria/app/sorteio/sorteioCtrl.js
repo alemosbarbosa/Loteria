@@ -1,7 +1,7 @@
 var app;
 (function (app) {
     var sorteio;
-    (function (sorteio) {
+    (function (sorteio_1) {
         var kTipoSorteio = 1;
         var kOpcaoAutomatica = "automatica";
         var kOpcaoManual = "manual";
@@ -87,7 +87,30 @@ var app;
                     self.atualizaControles();
                 });
             };
-            SorteioCtrl.prototype.processaRequisicao = function () {
+            SorteioCtrl.prototype.sortear = function () {
+                var _this = this;
+                var sorteioAutomatico = this.opcaoDeSorteio == kOpcaoAutomatica;
+                var numeros = sorteioAutomatico ? [] : this.numerosSorteio.map(function (x) { return x.Valor; }).filter(function (y) { return y != null; });
+                this.sorteioCorrente.Numeros = numeros;
+                var apiSorteioUpdate = this.constantService.apiSorteioURI + this.sorteioCorrente.Id;
+                this.dataService.update(apiSorteioUpdate, this.sorteioCorrente)
+                    .then(function (result) {
+                    _this.sorteioCorrente = result;
+                    _this.statusCorrente = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioCorrente.CodStatus; })[0];
+                    _this.atualizaControles();
+                }, function (reason) {
+                    if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
+                        reason.status === 400) {
+                        if (typeof (reason.data) !== "undefined" && typeof (reason.data.Message) != "undefined") {
+                            alert(reason.data.Message);
+                        }
+                    }
+                    else {
+                        alert("Ocorreu um erro no processamento da requisição");
+                    }
+                });
+            };
+            SorteioCtrl.prototype.processar = function () {
             };
             SorteioCtrl.prototype.atualizaControles = function () {
                 this.temAcertador = this.acertos && this.acertos.length > 0;
@@ -96,25 +119,8 @@ var app;
                 this.jaProcessado = this.statusSelecionado && this.statusSelecionado.CodStatus == 3; // Status: Processado
                 this.mostraNaoTemAcertador = this.jaProcessado && !this.temAcertador;
                 this.exibeTabelaAcertadores = this.jaProcessado && this.temAcertador;
+                this.podeCriar = this.sorteioCorrente && this.sorteioCorrente.CodStatus == 3;
             };
-            //temAcertador(): boolean {
-            //    return this.acertos && this.acertos.length > 0;
-            //}
-            //mostraNaoTemAcertador(): boolean {
-            //    return this.jaProcessado() && !this.temAcertador()
-            //}
-            //exibeTabelaAcertadores(): boolean {
-            //    return this.jaProcessado() && this.temAcertador()
-            //}
-            //podeSortear(): boolean {
-            //    return this.statusSelecionado && this.statusSelecionado.CodStatus == 1; // Status: Aberto
-            //}
-            //podeProcessar(): boolean {
-            //    return this.statusSelecionado && this.statusSelecionado.CodStatus == 2; // Status: Fechado
-            //}
-            //jaProcessado(): boolean {
-            //    return this.statusSelecionado && this.statusSelecionado.CodStatus == 3; // Status: Processado
-            //}
             SorteioCtrl.prototype.geraNumerosSorteados = function () {
                 var ret = "";
                 if (this.sorteioSelecionado && this.sorteioSelecionado.Numeros) {
@@ -124,6 +130,31 @@ var app;
                     }
                 }
                 return ret;
+            };
+            SorteioCtrl.prototype.criarSorteio = function () {
+                var _this = this;
+                if (this.sorteioCorrente && this.sorteioCorrente.CodStatus == 3) {
+                    var sorteio_2 = {
+                        "IdTipo": this.tipoSorteioCorrente.Id
+                    };
+                    this.dataService.add(this.constantService.apiSorteioURI, sorteio_2)
+                        .then(function (result) {
+                        _this.sorteioCorrente = result;
+                        _this.statusCorrente = _this.statusSorteio.filter(function (x) { return x.CodStatus == _this.sorteioCorrente.CodStatus; })[0];
+                        _this.sorteios.push(_this.sorteioCorrente);
+                        _this.atualizaControles();
+                    }, function (reason) {
+                        if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
+                            reason.status === 400) {
+                            if (typeof (reason.data) !== "undefined" && typeof (reason.data.Message) != "undefined") {
+                                alert(reason.data.Message);
+                            }
+                        }
+                        else {
+                            alert("Ocorreu um erro no processamento da requisição");
+                        }
+                    });
+                }
             };
             SorteioCtrl.$inject = ['constantService', 'dataService'];
             return SorteioCtrl;

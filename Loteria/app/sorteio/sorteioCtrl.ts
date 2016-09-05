@@ -35,6 +35,7 @@
         jaProcessado: boolean;
         mostraNaoTemAcertador: boolean;
         exibeTabelaAcertadores: boolean;
+        podeCriar: boolean;
 
         static $inject = ['constantService', 'dataService'];
         constructor(private constantService: app.common.services.ConstantService,
@@ -111,7 +112,31 @@
             });
         }
 
-        processaRequisicao(): void {
+        sortear(): void {
+            var sorteioAutomatico = this.opcaoDeSorteio == kOpcaoAutomatica;
+            var numeros: number[] = sorteioAutomatico ? [] : this.numerosSorteio.map(x => x.Valor).filter(y => y != null);
+            this.sorteioCorrente.Numeros = numeros;
+            var apiSorteioUpdate = this.constantService.apiSorteioURI + this.sorteioCorrente.Id;
+            this.dataService.update(apiSorteioUpdate, this.sorteioCorrente)
+                .then((result: app.domain.ISorteio) => {
+                    this.sorteioCorrente = result;
+                    this.statusCorrente = this.statusSorteio.filter(x => x.CodStatus == this.sorteioCorrente.CodStatus)[0];
+                    this.atualizaControles();
+                },
+                (reason) => {
+                    if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
+                        reason.status === 400) {
+                        if (typeof (reason.data) !== "undefined" && typeof (reason.data.Message) != "undefined") {
+                            alert(reason.data.Message);
+                        }
+                    }
+                    else {
+                        alert("Ocorreu um erro no processamento da requisição");
+                    }
+                });
+        }
+
+        processar(): void {
         }
 
         atualizaControles(): void {
@@ -121,31 +146,8 @@
             this.jaProcessado = this.statusSelecionado && this.statusSelecionado.CodStatus == 3; // Status: Processado
             this.mostraNaoTemAcertador = this.jaProcessado && !this.temAcertador;
             this.exibeTabelaAcertadores = this.jaProcessado && this.temAcertador;
+            this.podeCriar = this.sorteioCorrente && this.sorteioCorrente.CodStatus == 3;
         }
-
-        //temAcertador(): boolean {
-        //    return this.acertos && this.acertos.length > 0;
-        //}
-
-        //mostraNaoTemAcertador(): boolean {
-        //    return this.jaProcessado() && !this.temAcertador()
-        //}
-
-        //exibeTabelaAcertadores(): boolean {
-        //    return this.jaProcessado() && this.temAcertador()
-        //}
-
-        //podeSortear(): boolean {
-        //    return this.statusSelecionado && this.statusSelecionado.CodStatus == 1; // Status: Aberto
-        //}
-
-        //podeProcessar(): boolean {
-        //    return this.statusSelecionado && this.statusSelecionado.CodStatus == 2; // Status: Fechado
-        //}
-
-        //jaProcessado(): boolean {
-        //    return this.statusSelecionado && this.statusSelecionado.CodStatus == 3; // Status: Processado
-        //}
 
         geraNumerosSorteados(): string {
             let ret: string = "";
@@ -158,6 +160,30 @@
             return ret;
         }
 
+        criarSorteio(): void {
+            if (this.sorteioCorrente && this.sorteioCorrente.CodStatus == 3) {
+                let sorteio = {
+                    "IdTipo": this.tipoSorteioCorrente.Id
+                    };
+                this.dataService.add(this.constantService.apiSorteioURI, sorteio)
+                    .then((result: app.domain.ISorteio) => {
+                        this.sorteioCorrente = result;
+                        this.statusCorrente = this.statusSorteio.filter(x => x.CodStatus == this.sorteioCorrente.CodStatus)[0];
+                        this.sorteios.push(this.sorteioCorrente);
+                        this.atualizaControles();
+                    }, (reason) => {
+                        if (typeof (reason) !== "undefined" && typeof (reason.status) !== "undefined" &&
+                            reason.status === 400) {
+                            if (typeof (reason.data) !== "undefined" && typeof (reason.data.Message) != "undefined") {
+                                alert(reason.data.Message);
+                            }
+                        }
+                        else {
+                            alert("Ocorreu um erro no processamento da requisição");
+                        }
+                    });
+           }
+        }
     }
     angular.module('loteriaApp')
         .controller('SorteioCtrl', SorteioCtrl);

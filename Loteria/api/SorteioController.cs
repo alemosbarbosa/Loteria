@@ -13,6 +13,7 @@ namespace Loteria.api
     {
         private LoteriaEntity entity = new LoteriaEntity();
         private DbSet<Sorteio> MySorteio { get { return entity.Sorteio; } }
+        private LoteriaDAL dal = new LoteriaDAL();
 
         // GET api/sorteio
         public IHttpActionResult Get()
@@ -61,6 +62,40 @@ namespace Loteria.api
             var sorteios = MySorteio.Where(p => p.IdTipo == idTipo).ToArray();
             var sorteioDTOs = sorteios.Select(x => (SorteioDTO)x).ToArray();
             return Ok(sorteioDTOs);
+        }
+
+        // POST api/sorteio
+        public IHttpActionResult Post([FromBody]SorteioDTO sorteioDTO)
+        {
+            try
+            {
+                var idTipo = sorteioDTO.IdTipo;
+                var newSorteio = dal.CriaSorteio(idTipo);
+                return Ok((SorteioDTO)newSorteio);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                return BadRequest(msg);
+            }
+        }
+
+        // PUT api/sorteio/5
+        public IHttpActionResult Put(int id, [FromBody]SorteioDTO sorteioDTO)
+        {
+            try
+            {
+                var idSorteio = sorteioDTO.Id.Value;
+                var sorteioAutomaticao = sorteioDTO.SorteioAutomatico;
+                var numeros = sorteioDTO.Numeros;
+                var newSorteio = sorteioAutomaticao ? dal.FechaSorteio(idSorteio) : dal.FechaSorteio(idSorteio, numeros);
+                return Ok((SorteioDTO)newSorteio);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                return BadRequest(msg);
+            }
         }
     }
 }

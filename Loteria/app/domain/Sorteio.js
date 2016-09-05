@@ -9,7 +9,7 @@ var app;
     (function (domain) {
         var Sorteio = (function (_super) {
             __extends(Sorteio, _super);
-            function Sorteio(IdTipo, Numeros, NumSorteio, Id, DhCriacao, DhSorteio, CodStatus, QtdApostas) {
+            function Sorteio(IdTipo, Numeros, NumSorteio, Id, DhCriacao, DhSorteio, CodStatus, QtdApostas, SorteioAutomatico) {
                 _super.call(this);
                 this.IdTipo = IdTipo;
                 this.Numeros = Numeros;
@@ -19,6 +19,7 @@ var app;
                 this.DhSorteio = DhSorteio;
                 this.CodStatus = CodStatus;
                 this.QtdApostas = QtdApostas;
+                this.SorteioAutomatico = SorteioAutomatico;
                 this.Id = Id;
                 this.IdTipo = IdTipo;
                 this.NumSorteio = NumSorteio;
@@ -27,6 +28,7 @@ var app;
                 this.CodStatus = CodStatus;
                 this.QtdApostas = QtdApostas;
                 this.Numeros = Numeros;
+                this.SorteioAutomatico = SorteioAutomatico;
             }
             return Sorteio;
         }(app.domain.EntityBase));
